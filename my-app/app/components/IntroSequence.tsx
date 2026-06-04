@@ -19,6 +19,7 @@ export default function IntroSequence({
 }) {
   const [slide, setSlide] = useState(0);
 
+  // Transitions the slides after 3.5 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       if (slide === 0) setSlide(1);
@@ -47,7 +48,7 @@ export default function IntroSequence({
             </motion.p>
             <motion.h1
               variants={item}
-              className="text-2xl md:text-5xl font-bold tracking-[0.2em] mb-8 break-words"
+              className="text-2xl md:text-5xl font-bold tracking-[0.2em] mb-12 break-words"
             >
               IDENTITY_VERIFIED
             </motion.h1>
@@ -60,9 +61,18 @@ export default function IntroSequence({
             </motion.p>
             <motion.h1
               variants={item}
-              className="text-3xl md:text-6xl font-bold tracking-[0.1em] break-words"
+              className="text-3xl md:text-6xl font-bold tracking-[0.1em] break-words flex items-center flex-wrap"
             >
               MUKUL RAWAT
+              <motion.span
+                animate={{ opacity: [1, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 0.9,
+                  ease: "circInOut",
+                }}
+                className="ml-2 md:ml-3 w-[6px] md:w-1 h-[0.7em] bg-emerald-500 inline-block"
+              />
             </motion.h1>
           </motion.div>
         ) : (
@@ -82,7 +92,7 @@ export default function IntroSequence({
             </motion.p>
             <motion.h1
               variants={item}
-              className="text-xl md:text-4xl font-bold tracking-[0.1em] mb-8 break-words"
+              className="text-xl md:text-4xl font-bold tracking-[0.1em] mb-12 break-words"
             >
               SOFTWARE ENGINEER
             </motion.h1>
@@ -95,9 +105,18 @@ export default function IntroSequence({
             </motion.p>
             <motion.h1
               variants={item}
-              className="text-xl md:text-4xl font-bold tracking-[0.1em] break-words"
+              className="text-xl md:text-4xl font-bold tracking-[0.1em] break-words flex items-center flex-wrap"
             >
-              DE SHAW & Co
+              DE Shaw & Co
+              <motion.span
+                animate={{ opacity: [1, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 0.9,
+                  ease: "circInOut",
+                }}
+                className="ml-2 md:ml-3 w-[6px] md:w-1 h-[0.7em] bg-emerald-500 inline-block"
+              />
             </motion.h1>
           </motion.div>
         )}

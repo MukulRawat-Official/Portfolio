@@ -9,7 +9,7 @@ import {
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const useBlackjack = () => {
-  const [bank, setBank] = useState(4700);
+  const [bank, setBank] = useState(5000);
   const [bet, setBet] = useState(100);
   const [playerHand, setPlayerHand] = useState<Card[]>([]);
   const [dealerHand, setDealerHand] = useState<Card[]>([]);

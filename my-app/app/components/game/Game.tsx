@@ -27,38 +27,36 @@ export default function Game({ onBack, onComplete }: GameProps) {
   } = useBlackjack();
 
   return (
-    <div className="min-h-screen bg-[#050505] text-emerald-500 font-mono flex flex-col p-8">
-      {/* Updated Header with larger, more legible UI elements */}
-      <header className="flex justify-between items-center border-b border-emerald-500/20 pb-6 mb-12">
+    <div className="min-h-screen bg-[#050505] text-emerald-500 font-mono flex flex-col p-4 md:p-8">
+      {/* Responsive Header */}
+      <header className="flex flex-wrap justify-between items-center border-b border-emerald-500/20 pb-6 mb-8 gap-4">
         <button
           onClick={onBack}
-          className="text-sm font-bold text-emerald-500/70 hover:text-emerald-400 uppercase tracking-widest border border-emerald-500/30 px-6 py-3 hover:bg-emerald-500/10 transition-all rounded-sm"
+          className="text-sm font-bold text-emerald-500/70 hover:text-emerald-400 uppercase tracking-widest border border-emerald-500/30 px-4 py-2 hover:bg-emerald-500/10 transition-all rounded-sm"
         >
-          ← BACK TO MENU
+          ← BACK
         </button>
 
-        <div className="flex gap-16">
+        <div className="flex gap-8 md:gap-16">
           <div className="flex flex-col items-center">
-            <span className="text-xs text-emerald-500/50 uppercase tracking-[0.2em] mb-1">
-              Bankroll
+            <span className="text-[10px] text-emerald-500/50 uppercase tracking-[0.2em]">
+              Bank
             </span>
-            <span className="text-2xl font-bold">${bank}</span>
+            <span className="text-xl font-bold">${bank}</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-xs text-emerald-500/50 uppercase tracking-[0.2em] mb-1">
+            <span className="text-[10px] text-emerald-500/50 uppercase tracking-[0.2em]">
               Target
             </span>
-            <span className="text-2xl font-bold">$10,000</span>
+            <span className="text-xl font-bold">$10k</span>
           </div>
         </div>
-
-        {/* Invisible spacer to balance the header layout */}
-        <div className="w-[150px]" />
       </header>
 
-      <main className="flex-1 flex flex-col items-center justify-center gap-16">
+      {/* Main Game Area */}
+      <main className="flex-1 flex flex-col items-center justify-center gap-8 md:gap-16">
         {/* Dealer Section */}
-        <section className="flex flex-col items-center">
+        <section className="flex flex-col items-center w-full">
           <div className="flex items-center gap-4 mb-4">
             <span className="text-xs uppercase tracking-widest text-emerald-500/50">
               Dealer_Hand
@@ -71,7 +69,8 @@ export default function Game({ onBack, onComplete }: GameProps) {
                   : getScore(dealerHand)}
             </span>
           </div>
-          <div className="flex gap-2 h-36">
+          {/* Added flex-wrap and h-auto to prevent overflow */}
+          <div className="flex flex-wrap justify-center gap-2 h-auto min-h-[144px]">
             {dealerHand.map((c, i) => (
               <PlayingCard
                 key={c.id}
@@ -85,8 +84,9 @@ export default function Game({ onBack, onComplete }: GameProps) {
         </section>
 
         {/* Player Section */}
-        <section className="flex flex-col items-center">
-          <div className="flex gap-2 h-36">
+        <section className="flex flex-col items-center w-full">
+          {/* Added flex-wrap and h-auto to prevent overflow */}
+          <div className="flex flex-wrap justify-center gap-2 h-auto min-h-[144px] mb-4">
             {playerHand.map((c) => (
               <PlayingCard
                 key={c.id}
@@ -96,7 +96,7 @@ export default function Game({ onBack, onComplete }: GameProps) {
               />
             ))}
           </div>
-          <div className="flex items-center gap-4 mt-4">
+          <div className="flex items-center gap-4">
             <span className="text-xs uppercase tracking-widest text-emerald-500/50">
               Player_Total
             </span>
@@ -107,18 +107,19 @@ export default function Game({ onBack, onComplete }: GameProps) {
         </section>
       </main>
 
-      <footer className="flex flex-col items-center gap-6 mt-8 pt-8 border-t border-emerald-500/20">
-        <div className="text-emerald-500/80 tracking-[0.3em] uppercase text-sm font-bold">
+      {/* Responsive Footer */}
+      <footer className="flex flex-col items-center gap-4 mt-8 pt-8 border-t border-emerald-500/20">
+        <div className="text-emerald-500/80 tracking-[0.2em] uppercase text-xs font-bold text-center">
           {message}
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           {gameState === "betting" &&
             [100, 200, 500].map((b) => (
               <button
                 key={b}
                 onClick={() => setBet(b)}
-                className={`w-24 h-14 border transition-all text-lg font-bold ${bet === b ? "border-emerald-500 bg-emerald-500 text-black" : "border-emerald-500/30 hover:border-emerald-500"}`}
+                className={`w-20 h-12 border transition-all text-sm font-bold ${bet === b ? "border-emerald-500 bg-emerald-500 text-black" : "border-emerald-500/30 hover:border-emerald-500"}`}
               >
                 ${b}
               </button>
@@ -127,40 +128,41 @@ export default function Game({ onBack, onComplete }: GameProps) {
           {gameState === "betting" && (
             <button
               onClick={deal}
-              className="px-10 h-14 border border-emerald-500 hover:bg-emerald-500 hover:text-black transition-colors text-lg font-bold"
+              className="px-8 h-12 border border-emerald-500 hover:bg-emerald-500 hover:text-black transition-colors text-sm font-bold"
             >
               DEAL
             </button>
           )}
 
           {gameState === "playing" && (
-            <>
+            <div className="flex flex-wrap justify-center gap-2">
               <button
                 onClick={handleHit}
-                className="w-28 h-14 border border-emerald-500 hover:bg-emerald-500 hover:text-black transition-colors font-bold"
+                className="w-20 h-12 border border-emerald-500 hover:bg-emerald-500 hover:text-black transition-colors text-sm font-bold"
               >
                 HIT
               </button>
               <button
                 onClick={handleStand}
-                className="w-28 h-14 border border-emerald-500 hover:bg-emerald-500 hover:text-black transition-colors font-bold"
+                className="w-20 h-12 border border-emerald-500 hover:bg-emerald-500 hover:text-black transition-colors text-sm font-bold"
               >
                 STAND
               </button>
               {playerHand.length === 2 && bank >= bet && (
                 <button
                   onClick={handleDouble}
-                  className="w-28 h-14 border border-emerald-500 hover:bg-emerald-500 hover:text-black transition-colors font-bold"
+                  className="w-20 h-12 border border-emerald-500 hover:bg-emerald-500 hover:text-black transition-colors text-sm font-bold"
                 >
                   DOUBLE
                 </button>
               )}
-            </>
+            </div>
           )}
+
           {gameState === "result" && (
             <button
               onClick={() => setGameState("betting")}
-              className="px-10 h-14 border border-emerald-500 hover:bg-emerald-500 hover:text-black transition-colors font-bold"
+              className="px-8 h-12 border border-emerald-500 hover:bg-emerald-500 hover:text-black transition-colors text-sm font-bold"
             >
               NEXT_ROUND
             </button>

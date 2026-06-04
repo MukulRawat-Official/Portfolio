@@ -28,7 +28,7 @@ export default function EntryGate({
               01
             </span>
             <span className="text-2xl font-bold tracking-widest group-hover:text-white transition-colors">
-              DASHBOARD
+              PORTFOLIO DASHBOARD
             </span>
           </button>
 
@@ -40,7 +40,7 @@ export default function EntryGate({
               02
             </span>
             <span className="text-2xl font-bold tracking-widest group-hover:text-white transition-colors">
-              BLACKJACK
+              Having a break? Let's play BLACKJACK
             </span>
           </button>
         </div>

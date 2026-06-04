@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
 // 1. Added interface to handle the onBack prop
@@ -54,6 +55,23 @@ const Badge = ({ text }: { text: string }) => (
 
 // 2. Destructured onBack from props
 export default function Dashboard({ onBack }: DashboardProps) {
+  // --- Added Swipe Back / Hardware Back Button Intercept ---
+  useEffect(() => {
+    // Push a state so the browser has something to "go back" from
+    window.history.pushState(null, "", window.location.pathname);
+
+    const handleBackButton = () => {
+      onBack();
+    };
+
+    window.addEventListener("popstate", handleBackButton);
+
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, [onBack]);
+  // ---------------------------------------------------------
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -171,8 +189,9 @@ export default function Dashboard({ onBack }: DashboardProps) {
             </h3>
             <p className="text-sm text-zinc-400 leading-relaxed">
               Moving beyond vertical scaling by addressing core algorithmic
-              bottlenecks. Replacing linear O(N) operations with logarithmic
-              architectures like Quadtrees and tiered write-through caching.
+              bottlene bottlenecks. Replacing linear O(N) operations with
+              logarithmic architectures like Quadtrees and tiered write-through
+              caching.
             </p>
           </div>
         </div>

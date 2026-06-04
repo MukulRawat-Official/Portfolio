@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react"; // Added useEffect import
 import { useBlackjack } from "@/hooks/useBlackjack";
 import { PlayingCard } from "@/app/components/game/cards/PlayingCard";
 import { Suit } from "@/app/components/game/BlackjackLogic";
@@ -25,6 +25,23 @@ export default function Game({ onBack, onComplete }: GameProps) {
     setGameState,
     getScore,
   } = useBlackjack();
+
+  // --- Added Swipe Back / Hardware Back Button Intercept ---
+  useEffect(() => {
+    // Push a state so the browser has something to "go back" from
+    window.history.pushState(null, "", window.location.pathname);
+
+    const handleBackButton = () => {
+      onBack();
+    };
+
+    window.addEventListener("popstate", handleBackButton);
+
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, [onBack]);
+  // ---------------------------------------------------------
 
   return (
     <div className="min-h-screen bg-[#050505] text-emerald-500 font-mono flex flex-col p-4 md:p-8">
